@@ -8,7 +8,8 @@ from gensim.models.word2vec import Word2Vec
 
 
 class Datasets(object):
-	def __init__(self,task_index = 1, use10k = False, w2v_dim = 50, only_supporting = False):
+	def __init__(self,task_index = 1, use10k = False, w2v_dim = 50, only_supporting = False,
+		similar_only = False, min_num = 1):
 		'''
 
 		'''
@@ -28,6 +29,8 @@ class Datasets(object):
 		self.glove_dict = None
 		self.train = None
 		self.test = None
+		self.similar_only = similar_only
+		self.min_num = min_num
 
 
 	def _get_task_file(self):
@@ -159,6 +162,26 @@ class Datasets(object):
 	            story.append(sent)
 	    return data
 
+
+	def get_relevant_sentence(self, stories, question):
+		'''This method takes in a list of tokenized sentences and a question and returns min_num of 
+		sentences that are relevant or most similar to the question asked for training puposes.
+		'''
+		similarities = []
+		for story in stories:
+			story = [s.lower() for s in story]
+			question = [q.lower() for q in question]
+			similarities.append(self.glove_dict.n_similarity( story, question) )
+
+		relevant_ind = np.array( similarities ).argsort()[::-1][:self.min_num]
+
+		new_stories = []
+		for ind in relevant_ind:
+			#import pdb; pdb.set_trace()
+			new_stories.append( stories[ind] )
+		return new_stories
+
+		
 	def get_stories(self, f, max_length=None):
 	    '''Given a file name, read the file, retrieve the stories, and then convert the sentences into a single story.
 
@@ -167,6 +190,14 @@ class Datasets(object):
 	    If max_length is supplied, any stories longer than max_length tokens will be discarded.
 	    '''
 	    data = self.parse_stories(f.readlines())
+	    
+	    if self.similar_only:
+	    	new_data = []
+	    	for stories, question, answer in data:
+	    		new_stories = self.get_relevant_sentence(stories, question)
+	    		new_data.append( ( new_stories, question, answer ) )
+	    	data = new_data
+
 	    flatten = lambda data: reduce(lambda x, y: x + y, data)
 	    data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
 	    return data
