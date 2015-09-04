@@ -8,7 +8,7 @@ from keras.preprocessing.sequence import pad_sequences
 
 class Fit(object):
 	def __init__(self, model = recurrent.LSTM, w2v_dim = 50, sent_hidden_size = 500, 
-				query_hidden_size = 100, batch_size = 16, epochs = 4, vocab_size = None):
+				query_hidden_size = 100, batch_size = 16, epochs = 20, vocab_size = None):
 		'''
 
 		'''
@@ -63,13 +63,13 @@ class Fit(object):
 		return acc
 
 if __name__ == "__main__":
-	ds = Datasets(task_index = 1, only_supporting = False)
+	ds = Datasets(min_num = 1, similar_only = True, w2v_dim = 50, task_index = 1, only_supporting = False)
 	ds.fit()
 
 	X, qX, Y = ds.get_training_data()
 	tX, tXq, tY = ds.get_testing_data()
 
-	model_lstm = Fit( vocab_size = ds.vocab_size )
+	model_lstm = Fit( vocab_size = ds.vocab_size, w2v_dim = ds.W2V_DIM )
 	model_lstm.compile_layers()
 	model_lstm.run(X, qX, Y)
 	print model_lstm.score(tX, tXq, tY)
