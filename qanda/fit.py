@@ -41,7 +41,7 @@ class Fit(object):
 			qrnn = Sequential()
 			qrnn.add(RNN(self.W2V_DIM, self.QUERY_HIDDEN_SIZE, return_sequences=True))
 			qrnn.add(RNN(self.QUERY_HIDDEN_SIZE, self.QUERY_HIDDEN_SIZE2, return_sequences = False))
-			print 'I am here'
+			
 			# merging
 			model = Sequential()
 			model.add(Merge([sentrnn, qrnn], mode='concat'))
