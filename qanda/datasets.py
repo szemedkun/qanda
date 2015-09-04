@@ -182,6 +182,7 @@ class Datasets(object):
 		NOTE: if you are importing glove word vectors in gensim, add the dimensions of the document and the word vec in the first line
 		for example add "400000 50" without the quotes if the txt file containes 400000 words and each vector has a dimension of 50.
 		'''
+		word = word.lower()
 		if word in self.glove_dict:
 			return self.glove_dict[word]
 		else:
