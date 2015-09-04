@@ -173,7 +173,7 @@ class Datasets(object):
 			question = [q.lower() for q in question]
 			similarities.append(self.glove_dict.n_similarity( story, question) )
 
-		relevant_ind = np.array( similarities ).argsort()[::-1][:self.min_num]
+		relevant_ind = np.array( similarities ).argsort()[::-1][:self.min_num].sort()
 
 		new_stories = []
 		for ind in relevant_ind:
