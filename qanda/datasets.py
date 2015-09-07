@@ -9,7 +9,7 @@ from gensim.models.word2vec import Word2Vec
 
 class Datasets(object):
 	def __init__(self,task_index = 1, use10k = False, w2v_dim = 50, only_supporting = False,
-		similar_only = False, min_num = 1):
+		similar_only = False, min_num = 1, use_tree = False):
 		'''
 
 		'''
@@ -31,6 +31,7 @@ class Datasets(object):
 		self.test = None
 		self.similar_only = similar_only
 		self.min_num = min_num
+		self.use_tree = use_tree
 
 
 	def _get_task_file(self):
@@ -200,7 +201,12 @@ class Datasets(object):
 	    	data = new_data
 
 	    flatten = lambda data: reduce(lambda x, y: x + y, data)
-	    data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
+	    
+	    if self.use_tree:
+	    	data = [(story[0], story[1], q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
+	    else:
+	    	data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
+
 	    return data
 
 	def get_word_vec(self, word):
@@ -234,29 +240,57 @@ class Datasets(object):
 		# 	36, story_maxlen=25, query_maxlen=5)
 
 		'''
+		if self.use_tree:
+			X1 = []
+			X2 = []
+			Xq = []
+			Y = []
+		else:
+			X = []
+			Xq = []
+			Y = []
 
-		X = []
-		Xq = []
-		Y = []
 		print("Getting word2vec ...")
-		for story, query, answer in data:
-			x = np.zeros((self.story_maxlen, self.W2V_DIM))
-			xq = np.zeros((self.query_maxlen, self.W2V_DIM))
-			xw2v = [self.get_word_vec(w) for w in story]
-			xqw2v = [self.get_word_vec(w) for w in query]
-			ind_story = self.story_maxlen - len(story)
-			ind_q = self.query_maxlen - len(query)
+		if self.use_tree:
+			for story, query, answer in data:
+				x = np.zeros((self.story_maxlen, self.W2V_DIM))
+				xq = np.zeros((self.query_maxlen, self.W2V_DIM))
+				xw2v = [self.get_word_vec(w) for w in story]
+				xqw2v = [self.get_word_vec(w) for w in query]
+				ind_story = self.story_maxlen - len(story)
+				ind_q = self.query_maxlen - len(query)
 
-			x[ind_story:, :] = np.array( xw2v )
-			xq[ind_q:, :] = np.array( xqw2v )
+				x[ind_story:, :] = np.array( xw2v )
+				xq[ind_q:, :] = np.array( xqw2v )
 
-			y = np.zeros(self.vocab_size)
-			y[self.word_idx[answer]] = 1
-			X.append(x)
-			Xq.append(xq)
-			Y.append(y)
-		print("Finished getting word2vec ...")
-		return np.array(X), np.array(Xq), np.array(Y)
+				y = np.zeros(self.vocab_size)
+				y[self.word_idx[answer]] = 1
+				X.append(x)
+				Xq.append(xq)
+				Y.append(y)
+			print("Finished getting word2vec ...")
+			return np.array(X1), np.array(X2), np.array(Xq), np.array(Y)
+
+		else:
+			for story, query, answer in data:
+				x = np.zeros((self.story_maxlen, self.W2V_DIM))
+				xq = np.zeros((self.query_maxlen, self.W2V_DIM))
+				xw2v = [self.get_word_vec(w) for w in story]
+				xqw2v = [self.get_word_vec(w) for w in query]
+				ind_story = self.story_maxlen - len(story)
+				ind_q = self.query_maxlen - len(query)
+
+				x[ind_story:, :] = np.array( xw2v )
+				xq[ind_q:, :] = np.array( xqw2v )
+
+				y = np.zeros(self.vocab_size)
+				y[self.word_idx[answer]] = 1
+				X.append(x)
+				Xq.append(xq)
+				Y.append(y)
+			print("Finished getting word2vec ...")
+			return np.array(X), np.array(Xq), np.array(Y)
+
 
 	def get_training_data(self):
 		return self.vectorize_stories_with_w2v(self.train)
