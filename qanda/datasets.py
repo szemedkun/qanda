@@ -104,6 +104,7 @@ class Datasets(object):
 		f.close()
 
 		if self.use_tree:
+			#import pdb; pdb.set_trace()
 			vocab = sorted(reduce(lambda x, y: x | y, (set(story1 + story2 + q + [answer]) for story1, story2, q, answer in train + test)))
 		else:
 			vocab = sorted(reduce(lambda x, y: x | y, (set(story + q + [answer]) for story, q, answer in train + test)))
@@ -113,8 +114,10 @@ class Datasets(object):
 		self.vocab_size = vocab_size
 		word_idx = dict((c, i + 1) for i, c in enumerate(vocab))
 		self.word_idx = word_idx
-		story_maxlen = max(map(len, (x for x, _, _ in train + test)))
-		query_maxlen = max(map(len, (x for _, x, _ in train + test)))
+		story_maxlen1 = max(map(len, (x for x, _, _, _ in train + test)))
+		story_maxlen2 = max(map(len, (x for _, x, _, _ in train + test)))
+		story_maxlen = max( [story_maxlen1, story_maxlen2] )
+		query_maxlen = max(map(len, (x for _, _, x, _ in train + test)))
 		self.story_maxlen = story_maxlen
 		self.query_maxlen = query_maxlen
 
