@@ -1,7 +1,7 @@
 import numpy as np
 import csv
 from datasets import *
-from fit import *
+from fit2 import *
 
 task = 1
 ds = Datasets(task_index = task, only_supporting = False, 
