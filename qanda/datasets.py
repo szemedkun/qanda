@@ -103,7 +103,10 @@ class Datasets(object):
 		self.test = test
 		f.close()
 
-		vocab = sorted(reduce(lambda x, y: x | y, (set(story + q + [answer]) for story, q, answer in train + test)))
+		if self.use_tree:
+			vocab = sorted(reduce(lambda x, y: x | y, (set(story1 + story2 + q + [answer]) for story1, story2, q, answer in train + test)))
+		else:
+			vocab = sorted(reduce(lambda x, y: x | y, (set(story + q + [answer]) for story, q, answer in train + test)))
 		self.vocab = vocab
 
 		vocab_size = len(vocab) + 1
