@@ -4,7 +4,7 @@ from datasets import *
 from fit import *
 
 task = 1
-ds = Datasets(task_index = task, only_supporting = False, similar_only = False, min_num = 2)
+ds = Datasets(task_index = task, only_supporting = False, similar_only = False, use10k = True)
 ds.fit()
 
 X, qX, Y = ds.get_training_data()
