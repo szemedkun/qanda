@@ -12,17 +12,17 @@ tX, tXq, tY = ds.get_testing_data()
 
 
 shs = 500
-shs2 = 500
+#shs2 = 500
 qhs = 100
-qhs2 = 100
+#qhs2 = 100
 
 model_lstm = Fit( vocab_size = ds.vocab_size
-, sent_hidden_size2 = shs2
-, query_hidden_size2 = qhs2
+#, sent_hidden_size2 = shs2
+#, query_hidden_size2 = qhs2
 , sent_hidden_size = shs
 , query_hidden_size = qhs
-, two_hidden_layers = True
-, epochs = 20 )
+, two_hidden_layers = False
+, epochs = 10 )
 model_lstm.compile_layers()
 model_lstm.run(X, qX, Y)
 model_accu = model_lstm.score(tX, tXq, tY)
