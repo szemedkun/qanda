@@ -114,12 +114,19 @@ class Datasets(object):
 		self.vocab_size = vocab_size
 		word_idx = dict((c, i + 1) for i, c in enumerate(vocab))
 		self.word_idx = word_idx
-		story_maxlen1 = max(map(len, (x for x, _, _, _ in train + test)))
-		story_maxlen2 = max(map(len, (x for _, x, _, _ in train + test)))
-		story_maxlen = max( [story_maxlen1, story_maxlen2] )
-		query_maxlen = max(map(len, (x for _, _, x, _ in train + test)))
-		self.story_maxlen = story_maxlen
-		self.query_maxlen = query_maxlen
+		if self.use_tree:
+			story_maxlen1 = max(map(len, (x for x, _, _, _ in train + test)))
+			story_maxlen2 = max(map(len, (x for _, x, _, _ in train + test)))
+			story_maxlen = max( [story_maxlen1, story_maxlen2] )
+			query_maxlen = max(map(len, (x for _, _, x, _ in train + test)))
+			self.story_maxlen = story_maxlen
+			self.query_maxlen = query_maxlen
+		else:
+			story_maxlen = max(map(len, (x for x, _, _ in train + test)))
+			query_maxlen = max(map(len, (x for _, x, _ in train + test)))
+			self.story_maxlen = story_maxlen
+			self.query_maxlen = query_maxlen
+
 
 	def fit(self):
 		self._update_word_vec_dict()
