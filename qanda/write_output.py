@@ -29,8 +29,8 @@ model_accu = model_lstm.score(tX, tXq, tY)
 vocab = ds.vocab
 y_pred = model_lstm.model.predict_classes( [tX, tXq], batch_size = model_lstm.BATCH_SIZE )
 
-correct_file = '../output/tast_' + str( task ) + '_correct.csv'
-incorrect_file = '../output/tast_' + str( task ) + '_incorrect.csv'
+correct_file = '../../output/tast_' + str( task ) + '_correct.csv'
+incorrect_file = '../../output/tast_' + str( task ) + '_incorrect.csv'
 
 correct_output = [['sent+quest', 'actual_ans', 'pred_ans']]
 incorrect_output = [['sent+quest', 'actual_ans', 'pred_ans']]
