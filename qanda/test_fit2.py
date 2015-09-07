@@ -3,7 +3,7 @@ import csv
 from datasets import *
 from fit2 import *
 
-task = 1
+task = 2
 ds = Datasets(task_index = task, only_supporting = False, 
 	similar_only = True, use10k = False, use_tree = True, min_num = 2)
 ds.fit()
@@ -11,7 +11,7 @@ ds.fit()
 X1, X2, qX, Y = ds.get_training_data()
 tX1, tX2, tXq, tY = ds.get_testing_data()
 
-
+ 
 shs = 500
 #shs2 = 500
 qhs = 100

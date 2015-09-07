@@ -3,7 +3,7 @@ import csv
 from datasets import *
 from fit import *
 
-task = 1
+task = 2
 ds = Datasets(task_index = task, only_supporting = False, 
 	similar_only = True, use10k = False, use_tree = False, min_num = 2)
 ds.fit()
