@@ -252,20 +252,25 @@ class Datasets(object):
 
 		print("Getting word2vec ...")
 		if self.use_tree:
-			for story, query, answer in data:
-				x = np.zeros((self.story_maxlen, self.W2V_DIM))
+			for story1, story2, query, answer in data:
+				x1 = np.zeros((self.story_maxlen, self.W2V_DIM))
+				x2 = np.zeros((self.story_maxlen, self.W2V_DIM))
 				xq = np.zeros((self.query_maxlen, self.W2V_DIM))
-				xw2v = [self.get_word_vec(w) for w in story]
+				x1w2v = [self.get_word_vec(w) for w in story1]
+				x2w2v = [self.get_word_vec(w) for w in story2]
 				xqw2v = [self.get_word_vec(w) for w in query]
-				ind_story = self.story_maxlen - len(story)
+				ind_story1 = self.story_maxlen - len(story1)
+				ind_story2 = self.story_maxlen - len(story2)
 				ind_q = self.query_maxlen - len(query)
 
-				x[ind_story:, :] = np.array( xw2v )
+				x1[ind_story1:, :] = np.array( x1w2v )
+				x2[ind_story2:, :] = np.array( x2w2v )
 				xq[ind_q:, :] = np.array( xqw2v )
 
 				y = np.zeros(self.vocab_size)
 				y[self.word_idx[answer]] = 1
-				X.append(x)
+				X1.append(x1)
+				X2.append(x2)
 				Xq.append(xq)
 				Y.append(y)
 			print("Finished getting word2vec ...")
