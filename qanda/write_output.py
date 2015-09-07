@@ -41,8 +41,10 @@ for ind in xrange(1000):
 	co = csv.writer( open( correct_file, 'wb' ) )
 	io = csv.writer( open( incorrect_file, 'wb' ) )
 	if true_ans == pred_ans:
+		row = [line, true_ans, pred_ans]
 		correct_output.append( [line, true_ans, pred_ans] )
-		co.writerow( correct_output )
+		co.writerow( row )
 	else:
+		row = [line, true_ans, pred_ans]
 		incorrect_output.append( [line, true_ans, pred_ans] )
-		io.writerow( incorrect_output )
+		io.writerow( row )
