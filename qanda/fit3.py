@@ -122,7 +122,7 @@ class Fit3(object):
 		return acc
 
 if __name__ == "__main__":
-	ds = Datasets(task_index = 1, only_supporting = False, use10k = True)
+	ds = Datasets(task_index = 1, only_supporting = False, use10k = False)
 	ds.fit()
 
 	X, qX, Y = ds.get_training_data()
