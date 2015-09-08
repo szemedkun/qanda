@@ -29,7 +29,7 @@ from fit import *
 # vocab = ds.vocab
 def write_output(y_pred, ds, correct_file = None, incorrect_file = None):
 #y_pred = model_lstm.model.predict_classes( [tX, tXq], batch_size = model_lstm.BATCH_SIZE )
-
+	task = ds.task_index
 	if correct_file is None:
 		correct_file = '../../output/tast_' + str( task ) + '_correct.csv'
 	
