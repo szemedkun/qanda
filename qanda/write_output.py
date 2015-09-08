@@ -31,10 +31,10 @@ def write_output(y_pred, ds, correct_file = None, incorrect_file = None):
 #y_pred = model_lstm.model.predict_classes( [tX, tXq], batch_size = model_lstm.BATCH_SIZE )
 	task = ds.task_index
 	if correct_file is None:
-		correct_file = '../../output/tast_' + str( task ) + '_correct.csv'
+		correct_file = '../../output/tast_1_correct.csv'
 	
 	if incorrect_file is None:
-		incorrect_file = '../../output/tast_' + str( task ) + '_incorrect.csv'
+		incorrect_file = '../../output/tast_1_incorrect.csv'
 
 	vocab = ds.vocab
 	correct_output = [['sent+quest', 'actual_ans', 'pred_ans']]
