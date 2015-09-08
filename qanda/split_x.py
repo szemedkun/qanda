@@ -53,9 +53,10 @@ if __name__ == "__main__":
 	#X, Xq, Y = ds.get_training_data()
 	#train = ds.train
 	#max_doc_len = ds.story_maxlen
-	ind_list = get_indices( train, max_doc_len )
-	all_parts = split_x( X, ind_list )
-	new_dict = make_x( all_parts )
+	#ind_list = get_indices( train, max_doc_len )
+	#all_parts = split_x( X, ind_list )
+	#new_dict = make_x( all_parts )
+	pass
 
 
 
