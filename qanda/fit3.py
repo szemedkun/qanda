@@ -10,7 +10,7 @@ from keras.preprocessing.sequence import pad_sequences
 
 class Fit3(object):
 	def __init__(self, model = recurrent.LSTM, w2v_dim = 50, sent_hidden_size = 500, 
-				query_hidden_size = 100, batch_size = 4, epochs = 10, vocab_size = None, rs = False
+				query_hidden_size = 100, batch_size = 16, epochs = 10, vocab_size = None, rs = False
 				, sent_hidden_size2 = 200, query_hidden_size2 = 50, two_hidden_layers = False):
 		'''
 
@@ -122,7 +122,7 @@ class Fit3(object):
 		return acc
 
 if __name__ == "__main__":
-	ds = Datasets(task_index = 1, only_supporting = False, use10k = False)
+	ds = Datasets(task_index = 2, only_supporting = False, use10k = False)
 	ds.fit()
 
 	X, qX, Y = ds.get_training_data()
