@@ -5,7 +5,7 @@ from write_output import *
 
 
 
-ds = Datasets(task_index = 1, only_supporting = False, use10k = False)
+ds = Datasets(task_index = 3, only_supporting = False, use10k = False)
 ds.fit()
 
 X, qX, Y = ds.get_training_data()
