@@ -93,6 +93,9 @@ class Fit3(object):
 						, sentrnn10
 						, qrnn], mode='concat'))
 
+		# Another layer after the merge
+		# model.add(RNN(10*self.SENT_HIDDEN_SIZE + self.QUERY_HIDDEN_SIZE, 100))
+
 		# output layer
 		model.add(Dense(10*self.SENT_HIDDEN_SIZE + self.QUERY_HIDDEN_SIZE, self.vocab_size, activation='softmax'))
 
@@ -119,7 +122,7 @@ class Fit3(object):
 		return acc
 
 if __name__ == "__main__":
-	ds = Datasets(task_index = 1, only_supporting = False)
+	ds = Datasets(task_index = 1, only_supporting = False, use10k = True)
 	ds.fit()
 
 	X, qX, Y = ds.get_training_data()
@@ -157,7 +160,7 @@ if __name__ == "__main__":
 												  new_dict[8], \
 												  new_dict[9]
 
-	model_lstm = Fit3( vocab_size = ds.vocab_size, sent_hidden_size = 500, query_hidden_size = 100
+	model_lstm = Fit3( vocab_size = ds.vocab_size, sent_hidden_size = 100, query_hidden_size = 100
 	, model = recurrent.GRU )
 	model_lstm.compile_layers()
 	model_lstm.run(X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, qX, Y)
