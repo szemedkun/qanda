@@ -95,7 +95,7 @@ class Datasets(object):
 		
 		challenge = self._get_task_file()
 		f = open(challenge.format('train'),'r')
-		train = self.get_stories(f)
+		train = self.get_stories(f, downsample = True)
 		self.train = train
 		f.close()
 		f = open(challenge.format('test'),'r')
@@ -197,7 +197,7 @@ class Datasets(object):
 		return new_stories
 
 		
-	def get_stories(self, f, max_length=None):
+	def get_stories(self, f, max_length=None, downsample = False):
 	    '''Given a file name, read the file, retrieve the stories, and then convert the sentences into a single story.
 
 	    Adopted from Francois Chollet's blog
@@ -219,7 +219,9 @@ class Datasets(object):
 	    	data = [(story[0], story[1], q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
 	    else:
 	    	data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
-
+	    if downsample:
+	    	data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
+	    	data = [(story, q, answer) for story, q, answer in data if story[-2] != answer]
 	    return data
 
 	def get_word_vec(self, word):
