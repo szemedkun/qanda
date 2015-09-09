@@ -61,7 +61,7 @@ class Fit(object):
 
 			# query lstm
 			qrnn = Sequential()
-			qrnn.add(RNN(self.W2V_DIM, self.QUERY_HIDDEN_SIZE, return_sequences=self.rs))
+			qrnn.add(RNN(self.W2V_DIM, self.QUERY_HIDDEN_SIZE, return_sequences=self.rs, activation='relu'))
 			#qrnn.add(RNN(self.QUERY_HIDDEN_SIZE, self.QUERY_HIDDEN_SIZE2, return_sequences = False))
 			
 			# merging
