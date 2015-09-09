@@ -8,7 +8,7 @@ from keras.preprocessing.sequence import pad_sequences
 
 class Fit(object):
 	def __init__(self, model = recurrent.LSTM, w2v_dim = 50, sent_hidden_size = 500, 
-				query_hidden_size = 100, batch_size = 16, epochs = 10, vocab_size = None, rs = False
+				query_hidden_size = 100, batch_size = 16, epochs = 10, vocab_size = None, rs = True
 				, sent_hidden_size2 = 200, query_hidden_size2 = 50, two_hidden_layers = False):
 		'''
 
@@ -56,8 +56,8 @@ class Fit(object):
 			RNN = self.model
 			# statements lstm
 			sentrnn = Sequential()
-			sentrnn.add(RNN(self.W2V_DIM, self.SENT_HIDDEN_SIZE, return_sequences=True))
-			sentrnn.add(RNN(self.SENT_HIDDEN_SIZE, self.SENT_HIDDEN_SIZE2, return_sequences = False))
+			sentrnn.add(RNN(self.W2V_DIM, self.SENT_HIDDEN_SIZE, return_sequences=self.rs))
+			# sentrnn.add(RNN(self.SENT_HIDDEN_SIZE, self.SENT_HIDDEN_SIZE2, return_sequences = False))
 
 			# query lstm
 			qrnn = Sequential()
@@ -68,10 +68,10 @@ class Fit(object):
 			model = Sequential()
 			model.add(Merge([sentrnn, qrnn], mode='concat'))
 
-			model.add
+			# model.add
 
 			# output layer
-			model.add(Dense(self.SENT_HIDDEN_SIZE2 + self.QUERY_HIDDEN_SIZE, self.vocab_size, activation='softmax'))
+			model.add(Dense(self.SENT_HIDDEN_SIZE + self.QUERY_HIDDEN_SIZE, self.vocab_size, activation='softmax'))
 
 			model.compile(optimizer='adam', loss='categorical_crossentropy', class_mode='categorical')
 			self.model = model
