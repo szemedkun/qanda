@@ -164,7 +164,7 @@ if __name__ == "__main__":
 												  new_dict[8], \
 												  new_dict[9]
 
-	model4 = Fit4( vocab_size = ds.vocab_size, sent_hidden_size = 500, query_hidden_size = 100
+	model4 = Fit4( vocab_size = ds.vocab_size, sent_hidden_size = 500, query_hidden_size = 2
 	, model = recurrent.LSTM )
 	model4.compile_layers()
 	model4.run(X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, qX, Y)
