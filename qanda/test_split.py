@@ -44,7 +44,7 @@ tX1, tX2, tX3, tX4, tX5, tX6, tX7, tX8, tX9, tX10 = new_dict[0], \
 											  new_dict[9]
 
 accu = [('shs', 'qhs', 'acc')]
-for shs in [50,100,500]:
+for shs in [1000]:
 	for qhs in [20]:
 		model_lstm = Fit3( vocab_size = ds.vocab_size, sent_hidden_size = shs, query_hidden_size = qhs
 		, model = recurrent.LSTM )
