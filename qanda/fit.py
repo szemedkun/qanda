@@ -56,7 +56,7 @@ class Fit(object):
 			RNN = self.model
 			# statements lstm
 			sentrnn = Sequential()
-			sentrnn.add(RNN(self.W2V_DIM, self.SENT_HIDDEN_SIZE, return_sequences=self.rs, activation='sigmoid'))
+			sentrnn.add(RNN(self.W2V_DIM, self.SENT_HIDDEN_SIZE, return_sequences=self.rs, activation='relu'))
 			# sentrnn.add(RNN(self.SENT_HIDDEN_SIZE, self.SENT_HIDDEN_SIZE2, return_sequences = False))
 
 			# query lstm
