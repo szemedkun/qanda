@@ -96,13 +96,13 @@ class Fit(object):
 		return acc
 
 if __name__ == "__main__":
-	ds = Datasets(task_index = 1, only_supporting = False)
+	ds = Datasets(task_index = 1, only_supporting = False, use10k = True)
 	ds.fit()
 
 	X, qX, Y = ds.get_training_data()
 	tX, tXq, tY = ds.get_testing_data()
 
-	model_lstm = Fit( vocab_size = ds.vocab_size )
+	model_lstm = Fit( vocab_size = ds.vocab_size, batch_size = 4 )
 	model_lstm.compile_layers()
 	model_lstm.run(X, qX, Y)
 	print model_lstm.score(tX, tXq, tY)
