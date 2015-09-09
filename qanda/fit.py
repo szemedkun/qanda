@@ -73,7 +73,7 @@ class Fit(object):
 			# output layer
 			model.add(Dense(self.SENT_HIDDEN_SIZE + self.QUERY_HIDDEN_SIZE, self.vocab_size, activation='softmax'))
 
-			model.compile(optimizer='adam', loss='categorical_crossentropy', class_mode='categorical')
+			model.compile(optimizer='sgd', loss='categorical_crossentropy', class_mode='categorical')
 			self.model = model
 
 
@@ -96,7 +96,7 @@ class Fit(object):
 		return acc
 
 if __name__ == "__main__":
-	ds = Datasets(task_index = 1, only_supporting = False, use10k = True)
+	ds = Datasets(task_index = 1, only_supporting = False, use10k = False)
 	ds.fit()
 
 	X, qX, Y = ds.get_training_data()

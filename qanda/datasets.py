@@ -97,8 +97,8 @@ class Datasets(object):
 		f = open(challenge.format('train'),'r')
 		train = self.get_stories(f, downsample = True)
 		#import pdb; pdb.set_trace()
-		train =  [(story, q, answer) for story, q, answer in train if story[-2] != answer]
-		print('Using: {} observations'.format(len(train)))
+		#train =  [(story, q, answer) for story, q, answer in train if story[-2] != answer]
+		#print('Using: {} observations'.format(len(train)))
 		self.train = train
 		f.close()
 		f = open(challenge.format('test'),'r')
