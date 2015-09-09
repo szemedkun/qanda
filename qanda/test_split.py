@@ -44,17 +44,20 @@ tX1, tX2, tX3, tX4, tX5, tX6, tX7, tX8, tX9, tX10 = new_dict[0], \
 											  new_dict[9]
 
 accu = [('shs', 'qhs', 'acc')]
-for shs in [50, 500]:
-	for qhs in [10, 200]:
-		model_lstm = Fit3( vocab_size = ds.vocab_size, sent_hidden_size = shs, query_hidden_size = qhs
-		, model = recurrent.LSTM )
-		model_lstm.compile_layers()
-		model_lstm.run(X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, qX, Y)
-		acc = model_lstm.score(tX1, tX2, tX3, tX4, tX5, tX6, tX7, tX8, tX9, tX10, tXq, tY)
-		accu.append((shs, qhs, acc))
-		y_pred = model_lstm.model.predict_classes([tX1, tX2, tX3, tX4, tX5, tX6, tX7, tX8, tX9, tX10, tXq], 
-			batch_size = model_lstm.BATCH_SIZE)
-		write_output(y_pred, ds)
+#for shs in [50, 500]:
+#	for qhs in [10, 200]:
+shs = 100
+qhs = 100
+
+model_lstm = Fit3( vocab_size = ds.vocab_size, sent_hidden_size = shs, query_hidden_size = qhs
+, model = recurrent.LSTM )
+model_lstm.compile_layers()
+model_lstm.run(X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, qX, Y)
+acc = model_lstm.score(tX1, tX2, tX3, tX4, tX5, tX6, tX7, tX8, tX9, tX10, tXq, tY)
+accu.append((shs, qhs, acc))
+y_pred = model_lstm.model.predict_classes([tX1, tX2, tX3, tX4, tX5, tX6, tX7, tX8, tX9, tX10, tXq], 
+	batch_size = model_lstm.BATCH_SIZE)
+write_output(y_pred, ds)
 
 '''Result
 
