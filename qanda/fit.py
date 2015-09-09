@@ -56,12 +56,12 @@ class Fit(object):
 			RNN = self.model
 			# statements lstm
 			sentrnn = Sequential()
-			sentrnn.add(RNN(self.W2V_DIM, self.SENT_HIDDEN_SIZE, return_sequences=self.rs ))
+			sentrnn.add(RNN(self.W2V_DIM, self.SENT_HIDDEN_SIZE, return_sequences=self.rs))
 			# sentrnn.add(RNN(self.SENT_HIDDEN_SIZE, self.SENT_HIDDEN_SIZE2, return_sequences = False))
 
 			# query lstm
 			qrnn = Sequential()
-			qrnn.add(RNN(self.W2V_DIM, self.QUERY_HIDDEN_SIZE, return_sequences=self.rs, activation='relu'))
+			qrnn.add(Dense(self.W2V_DIM, self.QUERY_HIDDEN_SIZE, return_sequences=self.rs ))
 			#qrnn.add(RNN(self.QUERY_HIDDEN_SIZE, self.QUERY_HIDDEN_SIZE2, return_sequences = False))
 			
 			# merging
