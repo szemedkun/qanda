@@ -35,7 +35,7 @@ class Fit(object):
 			# statements lstm
 			sentrnn = Sequential()
 			sentrnn.add(RNN(self.W2V_DIM, self.SENT_HIDDEN_SIZE, return_sequences=True))
-			sentrnn.add(RNN(self.SENT_HIDDEN_SIZE, self.SENT_HIDDEN_SIZE2, return_sequences = False))
+			sentrnn.add(Dense(self.SENT_HIDDEN_SIZE, self.SENT_HIDDEN_SIZE2, activation='relu'))
 
 			# query lstm
 			qrnn = Sequential()
