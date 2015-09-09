@@ -96,6 +96,9 @@ class Datasets(object):
 		challenge = self._get_task_file()
 		f = open(challenge.format('train'),'r')
 		train = self.get_stories(f, downsample = True)
+		#import pdb; pdb.set_trace()
+		train =  [(story, q, answer) for story, q, answer in train if story[-2] != answer]
+		print('Using: {} observations'.format(len(train)))
 		self.train = train
 		f.close()
 		f = open(challenge.format('test'),'r')
@@ -219,9 +222,9 @@ class Datasets(object):
 	    	data = [(story[0], story[1], q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
 	    else:
 	    	data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
-	    if downsample:
-	    	data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
-	    	data = [(story, q, answer) for story, q, answer in data if story[-2] != answer]
+	    # if downsample:
+	    # 	#data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
+	    # 	data = [(story, q, answer) for story, q, answer in data if story[-2] != answer]
 	    return data
 
 	def get_word_vec(self, word):
@@ -321,8 +324,7 @@ class Datasets(object):
 
 
 if __name__=="__main__":
-	pass
-	# model = Datasets()
-	# model.fit()
-	# X, Xq, Y = model.get_training_data()
-	# tX, tXq, tY = model.get_testing_data() 
+	model = Datasets()
+	model.fit()
+	X, Xq, Y = model.get_training_data()
+	tX, tXq, tY = model.get_testing_data() 
