@@ -9,10 +9,11 @@ from gensim.models.word2vec import Word2Vec
 
 class Datasets(object):
 	def __init__(self,task_index = 1, use10k = False, w2v_dim = 50, only_supporting = False,
-		similar_only = False, min_num = 1, use_tree = False):
+		similar_only = False, min_num = 1, use_tree = False, use_small_target = False):
 		'''
 
 		'''
+		self.use_small_target = use_small_target
 		self.only_supporting = only_supporting
 		self.use10k = use10k
 		self.task_index = task_index
@@ -324,7 +325,8 @@ class Datasets(object):
 
 
 if __name__=="__main__":
-	model = Datasets()
-	model.fit()
-	X, Xq, Y = model.get_training_data()
-	tX, tXq, tY = model.get_testing_data() 
+	pass
+	# model = Datasets()
+	# model.fit()
+	# X, Xq, Y = model.get_training_data()
+	# tX, tXq, tY = model.get_testing_data() 
