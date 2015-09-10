@@ -33,6 +33,9 @@ class Datasets(object):
 		self.similar_only = similar_only
 		self.min_num = min_num
 		self.use_tree = use_tree
+		self.answers = []
+		self.answers_size = 0
+		self.answers_idx = {}
 
 
 	def _get_task_file(self):
@@ -112,12 +115,22 @@ class Datasets(object):
 			vocab = sorted(reduce(lambda x, y: x | y, (set(story1 + story2 + q + [answer]) for story1, story2, q, answer in train + test)))
 		else:
 			vocab = sorted(reduce(lambda x, y: x | y, (set(story + q + [answer]) for story, q, answer in train + test)))
+			answers = sorted(reduce(lambda x, y: x | y, (set([answer]) for story, q, answer in train + test)))
 		self.vocab = vocab
+		self.answers = answers
 
 		vocab_size = len(vocab) + 1
+		answers_size = len( answers ) + 1
+
 		self.vocab_size = vocab_size
+		self.answers_size = answers_size
+
 		word_idx = dict((c, i + 1) for i, c in enumerate(vocab))
+		answers_idx = dict( (c, i + 1 ) for i, c in enumerate( answers ) )
+
 		self.word_idx = word_idx
+		self.answers_idx = answers_idx
+
 		if self.use_tree:
 			story_maxlen1 = max(map(len, (x for x, _, _, _ in train + test)))
 			story_maxlen2 = max(map(len, (x for _, x, _, _ in train + test)))
@@ -286,8 +299,13 @@ class Datasets(object):
 				x2[ind_story2:, :] = np.array( x2w2v )
 				xq[ind_q:, :] = np.array( xqw2v )
 
-				y = np.zeros(self.vocab_size)
-				y[self.word_idx[answer]] = 1
+				if not self.use_small_target:
+					y = np.zeros(self.vocab_size)
+					y[self.word_idx[answer]] = 1
+				else:
+					y = np.zeros( self.answers_size )
+					y[ self.answers_idx[answer] ] = 1
+
 				X1.append(x1)
 				X2.append(x2)
 				Xq.append(xq)
@@ -307,8 +325,13 @@ class Datasets(object):
 				x[ind_story:, :] = np.array( xw2v )
 				xq[ind_q:, :] = np.array( xqw2v )
 
-				y = np.zeros(self.vocab_size)
-				y[self.word_idx[answer]] = 1
+				if not self.use_small_target:
+					y = np.zeros(self.vocab_size)
+					y[self.word_idx[answer]] = 1
+				else:
+					y = np.zeros( self.answers_size )
+					y[ self.answers_idx[answer] ] = 1
+
 				X.append(x)
 				Xq.append(xq)
 				Y.append(y)
@@ -325,8 +348,8 @@ class Datasets(object):
 
 
 if __name__=="__main__":
-	pass
-	# model = Datasets()
-	# model.fit()
-	# X, Xq, Y = model.get_training_data()
-	# tX, tXq, tY = model.get_testing_data() 
+	# pass
+	model = Datasets(use_small_target = True)
+	model.fit()
+	X, Xq, Y = model.get_training_data()
+	tX, tXq, tY = model.get_testing_data() 
