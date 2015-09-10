@@ -83,7 +83,7 @@ class Fit(object):
 
 		'''
 		print('Training')
-		self.model.fit([X, Xq], Y, batch_size=self.BATCH_SIZE, nb_epoch=self.EPOCHS, show_accuracy=True)
+		self.model.fit([X, Xq], Y, batch_size=self.BATCH_SIZE, nb_epoch=self.EPOCHS, show_accuracy=True, validation_split = 0.1)
 
 	def score(self,tX, tXq, tY):
 		'''
