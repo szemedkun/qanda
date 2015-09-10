@@ -20,13 +20,13 @@ def test_sent_size( sent = [2,4,6,8, 10] ):
 			, batch_size =16
 			, epochs = 50
 			, sent_hidden_size = shs[i]
-			, query_hidden_size = 3 )
+			, query_hidden_size = 10 )
 
 		model_lstm.compile_layers()
 		model_lstm.run(X, qX, Y)
 		print 'Accuracy for {} story length \n'.format( sent_size ), model_lstm.score(tX, tXq, tY)
 
-		file_name = '../../pickled_models/sent_size/model_lstm_sent_size_{}_task1.pkl'.format( sent_size )
+		file_name = '../../pickled_models/sent_size/model_lstm_sent_size_{}_task1_qz_10.pkl'.format( sent_size )
 		print('Pickling model ...')
 		with open(file_name,'wb') as f:
 			pkl.dump(model_lstm, f)
