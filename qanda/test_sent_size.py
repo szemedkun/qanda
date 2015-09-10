@@ -24,7 +24,7 @@ def test_sent_size( sent = [2,4,6,8, 10] ):
 		, epochs = 20
 		, sent_hidden_size = 50
 		, query_hidden_size = 10
-		, two_hidden_layers = True )
+		, two_hidden_layers = False )
 
 	model_lstm.compile_layers()
 	model_lstm.run(X, qX, Y)
@@ -63,7 +63,8 @@ def test_sent_size2( sent_size = 2):
 	, batch_size =16
 	, epochs = 20
 	, sent_hidden_size = 50
-	, query_hidden_size = 10 )
+	, query_hidden_size = 10
+	, two_hidden_layers = True )
 
 	model_lstm.compile_layers()
 	model_lstm.run(X1, X2, qX, Y)
@@ -73,7 +74,7 @@ def test_sent_size2( sent_size = 2):
 
 if __name__ == "__main__":
 	os.sys.setrecursionlimit(50000L)
-	test_sent_size()
+	test_sent_size2()
 	# X, Xq, Y = ds.get_training_data()
 	# train = ds.train
 	# max_doc_len = ds.story_maxlen
