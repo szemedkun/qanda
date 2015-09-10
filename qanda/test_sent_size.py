@@ -1,9 +1,13 @@
 from datasets import *
 from fit import *
 import cPickle as pkl
+import os
+os.sys.setrecursionlimit(50000L)
 
 
 def test_sent_size( sent = [2,4,6,8, 10] ):
+	os.sys.setrecursionlimit(50000L)
+
 	for i, sent_size in enumerate( sent ):
 		ds = Datasets(use_small_target = True, sent_size = sent_size)
 		ds.fit()
@@ -29,4 +33,5 @@ def test_sent_size( sent = [2,4,6,8, 10] ):
 
 
 if __name__ == "__main__":
+	os.sys.setrecursionlimit(50000L)
 	test_sent_size()
