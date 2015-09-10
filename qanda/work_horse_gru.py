@@ -47,7 +47,7 @@ def work_horse_gru():
 													  new_dict[8], \
 													  new_dict[9]
 
-		model_gru = Fit3( vocab_size = ds.vocab_size, batch_size =32, epochs=1, model = recurrent.GRU )
+		model_gru = Fit3( vocab_size = ds.vocab_size, batch_size =32, epochs=20, model = recurrent.GRU )
 		model_gru.compile_layers()
 		model_gru.run(X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, qX, Y)
 		acc = model_gru.score(tX1, tX2, tX3, tX4, tX5, tX6, tX7, tX8, tX9, tX10, tXq, tY)
