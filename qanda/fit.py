@@ -102,7 +102,7 @@ if __name__ == "__main__":
 	X, qX, Y = ds.get_training_data()
 	tX, tXq, tY = ds.get_testing_data()
 
-	model_lstm = Fit( vocab_size = ds.answers_size, batch_size =128, epochs = 50, sent_hidden_size = 30, query_hidden_size = 2 )
+	model_lstm = Fit( vocab_size = ds.answers_size, batch_size =128, epochs = 50, sent_hidden_size = 50, query_hidden_size = 2 )
 	model_lstm.compile_layers()
 	model_lstm.run(X, qX, Y)
 	print model_lstm.score(tX, tXq, tY)
