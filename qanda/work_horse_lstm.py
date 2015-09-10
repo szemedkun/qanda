@@ -49,8 +49,9 @@ def work_horse_lstm():
 		acc = model_lstm.score(tX1, tX2, tX3, tX4, tX5, tX6, tX7, tX8, tX9, tX10, tXq, tY)
 
 		file_name = '../../pickled_models/model_lstm'+str(task)+'_merged.pkl'
-		with open(file_name, 'wb') as f:
-			pkl.dump(model_lstm, f)
+		f = open(file_name, 'wb')
+		pkl.dump(model_lstm, f)
+		f.close()
 
 if __name__ == "__main__":
 	work_horse_lstm()
