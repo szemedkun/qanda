@@ -6,6 +6,8 @@ import os
 os.sys.setrecursionlimit(50000L)
 
 def work_horse_gru():
+	os.sys.setrecursionlimit(50000L)
+
 	for task in xrange(1,21):
 		ds = Datasets(task_index = task, only_supporting = False, use10k = False)
 		ds.fit()
@@ -57,4 +59,6 @@ def work_horse_gru():
 		f.close()
 
 if __name__ == "__main__":
+	os.sys.setrecursionlimit(50000L)
+
 	work_horse_gru()

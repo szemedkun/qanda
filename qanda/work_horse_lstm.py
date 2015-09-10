@@ -6,6 +6,7 @@ import os
 os.sys.setrecursionlimit(50000L)
 
 def work_horse_lstm():
+	os.sys.setrecursionlimit(50000L)
 	for task in xrange(1,21):
 		ds = Datasets(task_index = task, only_supporting = False, use10k = False)
 		ds.fit()
@@ -45,7 +46,7 @@ def work_horse_lstm():
 													  new_dict[8], \
 													  new_dict[9]
 
-		model_lstm = Fit3( vocab_size = ds.vocab_size, batch_size =32, epochs=20, model = recurrent.LSTM )
+		model_lstm = Fit3( vocab_size = ds.vocab_size, batch_size =32, epochs=1, model = recurrent.LSTM )
 		model_lstm.compile_layers()
 		model_lstm.run(X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, qX, Y)
 		acc = model_lstm.score(tX1, tX2, tX3, tX4, tX5, tX6, tX7, tX8, tX9, tX10, tXq, tY)
@@ -56,4 +57,6 @@ def work_horse_lstm():
 		f.close()
 
 if __name__ == "__main__":
+	os.sys.setrecursionlimit(50000L)
+
 	work_horse_lstm()
