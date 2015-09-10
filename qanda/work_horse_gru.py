@@ -50,7 +50,7 @@ def work_horse_gru():
 
 		file_name = '../../pickled_models/model_gru'+str(task)+'_merged.pkl'
 		with open(file_name, 'wb') as f:
-			pkl.dump(model_lstm)
+			pkl.dump(model_lstm, f)
 
 if __name__ == "__main__":
 	work_horse_gru()
