@@ -7,7 +7,7 @@ from keras.models import Sequential
 from keras.preprocessing.sequence import pad_sequences
 
 class Fit(object):
-	def __init__(self, model = recurrent.LSTM, w2v_dim = 50, sent_hidden_size = 1000,
+	def __init__(self, model = recurrent.LSTM, w2v_dim = 50, sent_hidden_size = 500,
 				query_hidden_size = 100, batch_size = 16, epochs = 10, vocab_size = None, rs = False
 				, sent_hidden_size2 = 200, query_hidden_size2 = 50, two_hidden_layers = False):
 		'''
@@ -83,7 +83,7 @@ class Fit(object):
 
 		'''
 		print('Training')
-		self.model.fit([X, Xq], Y, batch_size=self.BATCH_SIZE, nb_epoch=self.EPOCHS, validation_split=0.05, show_accuracy=True)
+		self.model.fit([X, Xq], Y, batch_size=self.BATCH_SIZE, nb_epoch=self.EPOCHS, show_accuracy=True)
 
 	def score(self,tX, tXq, tY):
 		'''
@@ -102,7 +102,7 @@ if __name__ == "__main__":
 	X, qX, Y = ds.get_training_data()
 	tX, tXq, tY = ds.get_testing_data()
 
-	model_lstm = Fit( vocab_size = ds.answers_size, batch_size =64 )
+	model_lstm = Fit( vocab_size = ds.answers_size, batch_size =32, epochs = 50, sent_hidden_size = 100, query_hidden_size = 20 )
 	model_lstm.compile_layers()
 	model_lstm.run(X, qX, Y)
 	print model_lstm.score(tX, tXq, tY)
