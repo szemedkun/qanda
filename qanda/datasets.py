@@ -9,7 +9,8 @@ from gensim.models.word2vec import Word2Vec
 
 class Datasets(object):
 	def __init__(self,task_index = 1, use10k = False, w2v_dim = 50, only_supporting = False,
-		similar_only = False, min_num = 1, use_tree = False, use_small_target = False):
+		similar_only = False, min_num = 1, use_tree = False, use_small_target = False,
+		sent_size = None):
 		'''
 
 		'''
@@ -36,6 +37,7 @@ class Datasets(object):
 		self.answers = []
 		self.answers_size = 0
 		self.answers_idx = {}
+		self.sent_size = sent_size
 
 
 	def _get_task_file(self):
@@ -191,6 +193,8 @@ class Datasets(object):
 	        else:
 	            sent = self.tokenize(line)
 	            story.append(sent)
+	    if self.sent_size:
+	    	data = [ dt for dt in data if len( dt[0] ) == self.sent_size ]
 	    return data
 
 
@@ -349,7 +353,7 @@ class Datasets(object):
 
 if __name__=="__main__":
 	# pass
-	model = Datasets(use_small_target = True)
+	model = Datasets(use_small_target = True, sent_size = 2)
 	model.fit()
 	X, Xq, Y = model.get_training_data()
 	tX, tXq, tY = model.get_testing_data() 

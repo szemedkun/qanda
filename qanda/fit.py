@@ -96,14 +96,14 @@ class Fit(object):
 		return acc
 
 if __name__ == "__main__":
-	ds = Datasets(task_index = 1, only_supporting = False, use10k = False, use_small_target = True)
-	ds.fit()
+	# ds = Datasets(task_index = 1, only_supporting = False, use10k = False, use_small_target = True)
+	# ds.fit()
 
-	X, qX, Y = ds.get_training_data()
-	tX, tXq, tY = ds.get_testing_data()
+	# X, qX, Y = ds.get_training_data()
+	# tX, tXq, tY = ds.get_testing_data()
 
-	model_lstm = Fit( vocab_size = ds.answers_size, batch_size =64, epochs = 50, sent_hidden_size = 50, query_hidden_size = 10 )
-	model_lstm.compile_layers()
-	model_lstm.run(X, qX, Y)
-	print model_lstm.score(tX, tXq, tY)
-	# pass
+	# model_lstm = Fit( vocab_size = ds.answers_size, batch_size =64, epochs = 50, sent_hidden_size = 50, query_hidden_size = 10 )
+	# model_lstm.compile_layers()
+	# model_lstm.run(X, qX, Y)
+	# print model_lstm.score(tX, tXq, tY)
+	pass
