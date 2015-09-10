@@ -23,7 +23,8 @@ def test_sent_size( sent = [2,4,6,8, 10] ):
 			, batch_size =16
 			, epochs = 20
 			, sent_hidden_size = 50
-			, query_hidden_size = 10 )
+			, query_hidden_size = 10
+			, two_hidden_layers = True )
 
 		model_lstm.compile_layers()
 		model_lstm.run(X, qX, Y)
