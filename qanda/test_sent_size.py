@@ -17,7 +17,7 @@ def test_sent_size( sent = [2,4,6,8, 10] ):
 		shs = [20,30,40,50, 60]
 
 		model_lstm = Fit( vocab_size = ds.answers_size
-			, batch_size =64
+			, batch_size =16
 			, epochs = 50
 			, sent_hidden_size = shs[i]
 			, query_hidden_size = 3 )
