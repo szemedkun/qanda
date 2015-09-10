@@ -7,7 +7,7 @@ def test_sent_size( sent = [2,4,6,8, 10] ):
 	for i, sent_size in enumerate( sent ):
 		ds = Datasets(use_small_target = True, sent_size = sent_size)
 		ds.fit()
-		X, Xq, Y = ds.get_training_data()
+		X, qX, Y = ds.get_training_data()
 		tX, tXq, tY = ds.get_testing_data() 
 
 		shs = [20,30,40,50, 60]
