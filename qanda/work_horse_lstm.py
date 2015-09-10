@@ -2,6 +2,8 @@ import cPickle as pkl
 from datasets import *
 from fit3 import *
 from split_x import *
+import os
+os.sys.setrecursionlimit(50000L)
 
 def work_horse_lstm():
 	for task in xrange(1,21):
