@@ -11,8 +11,8 @@ def test_sent_size( sent = [2,4,6,8, 10] ):
 	os.sys.setrecursionlimit(50000L)
 
 	# for i, sent_size in enumerate( sent ):
-	i, sent_size = 0, 2
-	ds = Datasets(use_small_target = True, sent_size = sent_size)
+	i, sent_size = 0, 10
+	ds = Datasets(use_small_target = True, use10k = True)
 	ds.fit()
 	X, qX, Y = ds.get_training_data()
 	tX, tXq, tY = ds.get_testing_data() 
@@ -22,17 +22,17 @@ def test_sent_size( sent = [2,4,6,8, 10] ):
 	model_lstm = Fit( vocab_size = ds.answers_size
 		, batch_size =16
 		, epochs = 20
-		, sent_hidden_size = 50
+		, sent_hidden_size = 100
 		, query_hidden_size = 10 )
 
 	model_lstm.compile_layers()
 	model_lstm.run(X, qX, Y)
 	print 'Accuracy for {} story length \n'.format( sent_size ), model_lstm.score(tX, tXq, tY)
 
-	# file_name = '../../pickled_models/sent_size/model_lstm_sent_size_{}_task1_qz_10.pkl'.format( sent_size )
-	# print('Pickling model ...')
-	# with open(file_name,'wb') as f:
-	# 	pkl.dump(model_lstm, f)
+	file_name = '../../pickled_models/sent_size/model_lstm_sent_size_all_task1_qz_10.pkl'
+	print('Pickling model ...')
+	with open(file_name,'wb') as f:
+		pkl.dump(model_lstm, f)
 
 def test_sent_size2( sent_size = 2):
 	'''
@@ -73,7 +73,7 @@ def test_sent_size2( sent_size = 2):
 
 if __name__ == "__main__":
 	os.sys.setrecursionlimit(50000L)
-	test_sent_size2()
+	test_sent_size()
 	# X, Xq, Y = ds.get_training_data()
 	# train = ds.train
 	# max_doc_len = ds.story_maxlen
