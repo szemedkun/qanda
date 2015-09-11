@@ -7,9 +7,10 @@ def compare_predictions(ds, model, tX, tXq, tY):
 	answers = ds.answers
 	test = ds.test
 
-	accumulator = [['Story Len','Actual', 'First_pred', 'Runner_up']]
+	accumulator = [['Story Len','Actual', 'First_pred', 'Runner_up', 'Prob 1st', 'Prob 2nd']]
 	for i, ts in enumerate( test ):
-		line = [Counter(ts[0])['.'], ts[2], answers[y_pred[i]-1], answers[ y_prob[i,:].argsort()[::-1][1] - 1 ] ]
+		line = [Counter(ts[0])['.'], ts[2], answers[y_pred[i]-1], answers[ y_prob[i,:].argsort()[::-1][1] - 1 ]
+		, y_prob[i,y_pred[i]], y_prob[i, y_prob[i,:].argsort()[::-1][1]] ]
 		accumulator.append( line )
 	return accumulator
 

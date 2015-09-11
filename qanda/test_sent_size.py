@@ -1,7 +1,9 @@
-from datasets import *
+from datasets import Datasets
+import pandas as pd
 from split_x import *
-from fit import *
-from fit2 import *
+from fit import Fit
+from fit2 import Fit2
+from compare_predictions import compare_predictions
 import cPickle as pkl
 import os
 os.sys.setrecursionlimit(50000L)
@@ -22,17 +24,21 @@ def test_sent_size( sent = [2,4,6,8, 10] ):
 	model_lstm = Fit( vocab_size = ds.answers_size
 		, batch_size =16
 		, epochs = 20
-		, sent_hidden_size = 100
+		, sent_hidden_size = 50
 		, query_hidden_size = 10 )
 
 	model_lstm.compile_layers()
 	model_lstm.run(X, qX, Y)
 	print 'Accuracy for {} story length \n'.format( sent_size ), model_lstm.score(tX, tXq, tY)
 
-	file_name = '../../pickled_models/sent_size/model_lstm_sent_size_all_task1_qz_10.pkl'
-	print('Pickling model ...')
-	with open(file_name,'wb') as f:
-		pkl.dump(model_lstm, f)
+	accum = compare_predictions(ds, model_lstm, tX, tXq, tY)
+	df =  pd.DataFrame(accum)
+	df.columns = df.iloc[0]
+
+	# file_name = '../../pickled_models/sent_size/model_lstm_sent_size_all_task1_qz_10.pkl'
+	# print('Pickling model ...')
+	# with open(file_name,'wb') as f:
+	# 	pkl.dump(model_lstm, f)
 
 def test_sent_size2( sent_size = 2):
 	'''
