@@ -26,10 +26,10 @@ def scan_for_parameters():
 
 			model_lstm.compile_layers()
 			model_lstm.run(X, qX, Y)
-			print 'Accuracy for {} story length \n'.format( sent_size ), model_lstm.score(tX, tXq, tY)
+			accuracy = model_lstm.score(tX, tXq, tY)
 
 			accum = compare_predictions(ds, model_lstm, tX, tXq, tY)
-			model_plus_pred = [accum, model_lstm]
+			model_plus_pred = [accum, model_lstm, accuracy]
 
 			file_name = '../../pickled_models/sent_size/model_lstm_shs_{}_task1_using_10k_qhs_{}.pkl'.format(shs, qhs)
 			print('Pickling model ...')
@@ -38,4 +38,5 @@ def scan_for_parameters():
 
 
 if __name__ == "__main__":
+	os.sys.setrecursionlimit(50000L)
 	scan_for_parameters()
