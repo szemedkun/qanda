@@ -1,5 +1,5 @@
 from datasets import Datasets
-import pandas as pd
+#import pandas as pd
 from split_x import *
 from fit import Fit
 from fit2 import Fit2
@@ -32,8 +32,8 @@ def test_sent_size( sent = [2,4,6,8, 10] ):
 	print 'Accuracy for {} story length \n'.format( sent_size ), model_lstm.score(tX, tXq, tY)
 
 	accum = compare_predictions(ds, model_lstm, tX, tXq, tY)
-	df =  pd.DataFrame(accum)
-	df.columns = df.iloc[0]
+	#df =  pd.DataFrame(accum)
+	#df.columns = df.iloc[0]
 
 	# file_name = '../../pickled_models/sent_size/model_lstm_sent_size_all_task1_qz_10.pkl'
 	# print('Pickling model ...')
