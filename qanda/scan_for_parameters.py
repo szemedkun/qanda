@@ -1,4 +1,5 @@
 from datasets import Datasets
+from compare_predictions import compare_predictions
 from fit import Fit
 import cPickle as pkl
 import os
