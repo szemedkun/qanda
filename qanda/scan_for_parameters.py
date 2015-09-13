@@ -9,7 +9,11 @@ os.sys.setrecursionlimit(50000L)
 def scan_for_parameters():
 	os.sys.setrecursionlimit(50000L)
 
-	ds = Datasets(use_small_target = True, use10k = True)
+	ds = Datasets(use_small_target = True
+		, similar_only = True
+		, min_num = 4
+		, use10k = True 
+		)
 	ds.fit()
 	X, qX, Y = ds.get_training_data()
 	tX, tXq, tY = ds.get_testing_data() 
@@ -24,10 +28,9 @@ def scan_for_parameters():
 			model_lstm = Fit( vocab_size = ds.answers_size
 				, batch_size =16
 				, epochs = 10
-				, similar_only = True
-				, min_num = 4
 				, sent_hidden_size = shs
-				, query_hidden_size = qhs )
+				, query_hidden_size = qhs 
+				)
 
 			model_lstm.compile_layers()
 			model_lstm.run(X, qX, Y)
