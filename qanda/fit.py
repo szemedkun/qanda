@@ -7,7 +7,7 @@ from keras.models import Sequential
 from keras.preprocessing.sequence import pad_sequences
 
 class Fit(object):
-	def __init__(self, model = recurrent.LSTM, w2v_dim = 50, sent_hidden_size = 500, dropout = None
+	def __init__(self, model = recurrent.LSTM, w2v_dim = 50, sent_hidden_size = 500, dropout = None, 
 				query_hidden_size = 100, batch_size = 16, epochs = 10, vocab_size = None, rs = False
 				, sent_hidden_size2 = 200, query_hidden_size2 = 50, two_hidden_layers = False):
 		'''
