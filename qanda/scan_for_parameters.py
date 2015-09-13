@@ -22,6 +22,7 @@ def scan_for_parameters():
 			for shs in shss:
 				for qhs in qhss:
 					ds = Datasets(use_small_target = True
+						, task_index = task
 						, similar_only = True
 						, min_num = 4
 						, use10k = True 
