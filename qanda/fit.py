@@ -1,13 +1,13 @@
 from datasets import Datasets
 import numpy as np
 np.random.seed(1337)  # for reproducibility
-from keras.layers.core import Dense, Merge
+from keras.layers.core import Dense, Merge, Dropout
 from keras.layers import recurrent
 from keras.models import Sequential
 from keras.preprocessing.sequence import pad_sequences
 
 class Fit(object):
-	def __init__(self, model = recurrent.LSTM, w2v_dim = 50, sent_hidden_size = 500,
+	def __init__(self, model = recurrent.LSTM, w2v_dim = 50, sent_hidden_size = 500, dropout = None
 				query_hidden_size = 100, batch_size = 16, epochs = 10, vocab_size = None, rs = False
 				, sent_hidden_size2 = 200, query_hidden_size2 = 50, two_hidden_layers = False):
 		'''
@@ -24,6 +24,7 @@ class Fit(object):
 		self.QUERY_HIDDEN_SIZE2 = query_hidden_size2
 		self.two_hidden_layers = two_hidden_layers
 		self.rs = rs
+		self.dropout = dropout
 
 	def compile_layers(self):
 		'''
@@ -57,6 +58,8 @@ class Fit(object):
 			# statements lstm
 			sentrnn = Sequential()
 			sentrnn.add(RNN(self.W2V_DIM, self.SENT_HIDDEN_SIZE, return_sequences=self.rs))
+			if self.dropout:
+				sentrnn.add(Dropout(self.dropout))
 			# sentrnn.add(RNN(self.SENT_HIDDEN_SIZE, self.SENT_HIDDEN_SIZE2, return_sequences = False))
 
 			# query lstm
