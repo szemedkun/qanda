@@ -17,7 +17,7 @@ def scan_for_parameters():
 	tasks = [1,2,3] #range(2,21)
 
 	for task in tasks:
-		for min_num in [1,2,3,4,5,6,7,8]:
+		for min_num in [1]:#,2,3,4,5,6,7,8]:
 
 			for shs in shss:
 				for qhs in qhss:
@@ -34,7 +34,7 @@ def scan_for_parameters():
 					model_lstm = Fit( vocab_size = ds.answers_size
 						, batch_size =16
 						, epochs = 10
-						, sent_hidden_size = shs
+						, sent_hidden_size = (shs * task)
 						, query_hidden_size = qhs 
 						)
 

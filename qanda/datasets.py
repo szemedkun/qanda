@@ -3,6 +3,7 @@ from __future__ import print_function
 from functools import reduce
 import re
 import numpy as np
+import cPickle as pkl
 np.random.seed(1337)  # for reproducibility
 from gensim.models.word2vec import Word2Vec
 
@@ -203,9 +204,12 @@ class Datasets(object):
 		'''This method takes in a list of tokenized sentences and a question and returns min_num of 
 		sentences that are relevant or most similar to the question asked for training puposes.
 		'''
+		with open('stop.pkl', 'wb') as f:
+			stop = pkl.load(f)
+
 		similarities = []
 		for story in stories:
-			story = [s.lower() for s in story]
+			story = [s.lower() for s in story if s not in stop]
 			question = [q.lower() for q in question]
 			sims = []
 			for s in story:
@@ -213,7 +217,9 @@ class Datasets(object):
 					sims.append( self.glove_dict.similarity( s, q ) )
 			similarities.append( sims )
 		#import pdb; pdb.set_trace()
-		relevant_ind = sorted( [ind for ind, sim in enumerate( similarities ) if max( sim ) > self.threshold] )
+
+		relevant_ind = sorted( [ind for ind, sim in enumerate( similarities ) 
+			if max( sim ) > self.threshold ] )
 
 		#relevant_ind = sorted( list( np.array( similarities ).argsort()[::-1][:self.min_num] ) )
 
