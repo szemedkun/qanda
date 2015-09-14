@@ -210,7 +210,7 @@ class Datasets(object):
 			sims = []
 			for s in story:
 				for q in question:
-					sims.append( self.glove.similaritY( s, q ) )
+					sims.append( self.glove_dict.similarity( s, q ) )
 			similarities.append( sims )
 		#import pdb; pdb.set_trace()
 		relevant_ind = sorted( [ind for ind, sim in enumerate( similarities ) if max( sim ) > self.threshold] )
