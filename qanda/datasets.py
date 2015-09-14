@@ -211,7 +211,7 @@ class Datasets(object):
 		
 		
 		indecies = []
-		for _ in xrange(self.task_index):
+		for j in xrange(self.task_index):
 			similarities = []
 			for story in stories:
 				story = [s.lower() for s in story if s not in stop]
