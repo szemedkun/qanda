@@ -25,7 +25,7 @@ def scan_for_parameters():
 						, task_index = task
 						, similar_only = True
 						, min_num = min_num
-						, use10k = True 
+						, use10k = False 
 						)
 					ds.fit()
 					X, qX, Y = ds.get_training_data()
