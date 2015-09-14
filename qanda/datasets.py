@@ -207,6 +207,8 @@ class Datasets(object):
 		with open('stop.pkl', 'rb') as f:
 			stop = pkl.load(f)
 
+		stop = stop + ['.']
+		
 		flatten = lambda data: reduce(lambda x, y: x + y, data)
 		
 		
