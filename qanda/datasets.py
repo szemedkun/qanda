@@ -206,7 +206,7 @@ class Datasets(object):
 		for story in stories:
 			story = [s.lower() for s in story]
 			question = [q.lower() for q in question]
-			similarities.append(self.glove_dict.n_similarity( story, question) )
+			similarities.append(self.glove_dict.n_similarity( story[:2], question[-3:]) )
 
 		relevant_ind = sorted( list( np.array( similarities ).argsort()[::-1][:self.min_num] ) )
 
