@@ -227,13 +227,13 @@ class Datasets(object):
 				if max( sim ) > self.threshold ] )
 			indecies.append( relevant_ind )
 			question = flatten( [stories[i] for i in relevant_ind] )
-
+		indecies = sorted( indecies )
 		#relevant_ind = sorted( list( np.array( similarities ).argsort()[::-1][:self.min_num] ) )
 
 		new_stories = []
 		#print relevant_ind
 		#import pdb; pdb.set_trace()
-		for ind in relevant_ind:
+		for ind in indecies:
 			new_stories.append( stories[ind] )
 		return new_stories
 
