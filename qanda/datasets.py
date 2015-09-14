@@ -10,7 +10,7 @@ from gensim.models.word2vec import Word2Vec
 class Datasets(object):
 	def __init__(self,task_index = 1, use10k = False, w2v_dim = 50, only_supporting = False,
 		similar_only = False, min_num = 1, use_tree = False, use_small_target = False,
-		sent_size = None):
+		sent_size = None, threshold = .9):
 		'''
 
 		'''
@@ -38,6 +38,7 @@ class Datasets(object):
 		self.answers_size = 0
 		self.answers_idx = {}
 		self.sent_size = sent_size
+		self.threshold = threshold
 
 
 	def _get_task_file(self):
@@ -206,9 +207,15 @@ class Datasets(object):
 		for story in stories:
 			story = [s.lower() for s in story]
 			question = [q.lower() for q in question]
-			similarities.append(self.glove_dict.n_similarity( story[:2], question[-3:]) )
+			sims = []
+			for s in story:
+				for q in question:
+					sims.append( self.glove.similaritY( s, q ) )
+			similarities.append( sims )
+		#import pdb; pdb.set_trace()
+		relevant_ind = sorted( [ind for ind, sim in enumerate( similarities ) if max( sim ) > self.threshold] )
 
-		relevant_ind = sorted( list( np.array( similarities ).argsort()[::-1][:self.min_num] ) )
+		#relevant_ind = sorted( list( np.array( similarities ).argsort()[::-1][:self.min_num] ) )
 
 		new_stories = []
 		#print relevant_ind
