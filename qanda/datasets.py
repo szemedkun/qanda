@@ -221,13 +221,12 @@ class Datasets(object):
 					for q in question:
 						sims.append( self.glove_dict.similarity( s, q ) )
 				similarities.append( sims )
-			#import pdb; pdb.set_trace()
 
 			relevant_ind = sorted( [ind for ind, sim in enumerate( similarities ) 
 				if max( sim ) > self.threshold ] )
 			indecies.append( relevant_ind )
 			question = flatten( [stories[i] for i in relevant_ind] )
-		indecies = sorted( indecies )
+		indecies = sorted( list( set( flatten( indecies ) ) ) )
 		#relevant_ind = sorted( list( np.array( similarities ).argsort()[::-1][:self.min_num] ) )
 
 		new_stories = []
