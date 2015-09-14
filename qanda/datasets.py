@@ -11,7 +11,7 @@ from gensim.models.word2vec import Word2Vec
 class Datasets(object):
 	def __init__(self,task_index = 1, use10k = False, w2v_dim = 50, only_supporting = False,
 		similar_only = False, min_num = 1, use_tree = False, use_small_target = False,
-		sent_size = None, threshold = .9):
+		sent_size = None, threshold = .99):
 		'''
 
 		'''

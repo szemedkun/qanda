@@ -25,6 +25,10 @@ class Fit(object):
 		self.two_hidden_layers = two_hidden_layers
 		self.rs = rs
 		self.dropout = dropout
+		self.X = None
+		self.Xq = None
+		self.Y = None
+		self.answers = None
 
 	def compile_layers(self):
 		'''
@@ -86,6 +90,9 @@ class Fit(object):
 
 		'''
 		print('Training')
+		self.X = X
+		self.Xq = Xq
+		self.Y = Y
 		self.model.fit([X, Xq], Y, batch_size=self.BATCH_SIZE, nb_epoch=self.EPOCHS, show_accuracy=True, validation_split = 0.1)
 
 	def score(self,tX, tXq, tY):
@@ -105,7 +112,7 @@ if __name__ == "__main__":
 	# X, qX, Y = ds.get_training_data()
 	# tX, tXq, tY = ds.get_testing_data()
 
-	# model_lstm = Fit( vocab_size = ds.answers_size, batch_size =64, epochs = 50, sent_hidden_size = 50, query_hidden_size = 10 )
+	# model_lstm = Fit( vocab_size = ds.answers_size, batch_size =16, epochs = 10, sent_hidden_size = 100, query_hidden_size = 10 )
 	# model_lstm.compile_layers()
 	# model_lstm.run(X, qX, Y)
 	# print model_lstm.score(tX, tXq, tY)
