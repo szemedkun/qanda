@@ -14,7 +14,7 @@ def scan_for_parameters():
 	shss = [100]
 	# qhss = [2,3,10,20,100]
 	qhss = [10]
-	tasks = range(2,21)
+	tasks = [1,2,3] #range(2,21)
 
 	for task in tasks:
 		for min_num in [1,2,3,4,5,6,7,8]:
@@ -24,7 +24,7 @@ def scan_for_parameters():
 					ds = Datasets(use_small_target = True
 						, task_index = task
 						, similar_only = True
-						, min_num = 4
+						, min_num = min_num
 						, use10k = True 
 						)
 					ds.fit()
