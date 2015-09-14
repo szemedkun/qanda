@@ -204,7 +204,7 @@ class Datasets(object):
 		'''This method takes in a list of tokenized sentences and a question and returns min_num of 
 		sentences that are relevant or most similar to the question asked for training puposes.
 		'''
-		with open('stop.pkl', 'wb') as f:
+		with open('stop.pkl', 'rb') as f:
 			stop = pkl.load(f)
 
 		similarities = []
