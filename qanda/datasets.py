@@ -207,19 +207,26 @@ class Datasets(object):
 		with open('stop.pkl', 'rb') as f:
 			stop = pkl.load(f)
 
-		similarities = []
-		for story in stories:
-			story = [s.lower() for s in story if s not in stop]
-			question = [q.lower() for q in question]
-			sims = []
-			for s in story:
-				for q in question:
-					sims.append( self.glove_dict.similarity( s, q ) )
-			similarities.append( sims )
-		#import pdb; pdb.set_trace()
+		flatten = lambda data: reduce(lambda x, y: x + y, data)
+		
+		
+		indecies = []
+		for _ in xrange(self.task_index):
+			similarities = []
+			for story in stories:
+				story = [s.lower() for s in story if s not in stop]
+				question = [q.lower() for q in question]
+				sims = []
+				for s in story:
+					for q in question:
+						sims.append( self.glove_dict.similarity( s, q ) )
+				similarities.append( sims )
+			#import pdb; pdb.set_trace()
 
-		relevant_ind = sorted( [ind for ind, sim in enumerate( similarities ) 
-			if max( sim ) > self.threshold ] )
+			relevant_ind = sorted( [ind for ind, sim in enumerate( similarities ) 
+				if max( sim ) > self.threshold ] )
+			indecies.append( relevant_ind )
+			question = flatten( [stories[i] for i in relevant_ind] )
 
 		#relevant_ind = sorted( list( np.array( similarities ).argsort()[::-1][:self.min_num] ) )
 
