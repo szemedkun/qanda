@@ -227,7 +227,8 @@ class Datasets(object):
 				for q in question:
 					if self.glove_dict.similarity( s, q ) > self.threshold:
 						indecies.append(i)
-						question += stories[i]
+						if self.task_index !=1:
+							question += stories[i]
 						#import pdb; pdb.set_trace()
 						break
 					else:
