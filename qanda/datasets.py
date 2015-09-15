@@ -207,26 +207,36 @@ class Datasets(object):
 		with open('stop.pkl', 'rb') as f:
 			stop = pkl.load(f)
 
-		stop = stop + ['.']  + ['?']
+
+		verbs = ['discarded','dropped','got','grabbed','journeyed','left','moved','picked','put','took','travelled','went']
+		stop = stop + ['.']  + ['?'] + verbs
 
 		flatten = lambda data: reduce(lambda x, y: x + y, data)
 		
 		
+		
+		# for j in xrange(self.task_index):
+		# 	similarities = []
+		
 		indecies = []
-		for j in xrange(self.task_index):
-			similarities = []
-			for i, story in enumerate( stories ):
-				story = [s.lower() for s in story if s not in stop]
-				question = [q.lower() for q in question if s not in stop]
-				sims = []
-				for s in story:
-					for q in question:
-						if self.glove_dict.similarity( s, q ) > self.threshold:
-							indecies.append(i)
-							question = flatten( [stories[l] for l in indecies] )
-							break
-					if i in indecies:
+		for i, story in enumerate( stories ):
+			story = [s.lower() for j, s in enumerate(story) if s not in stop]
+			question = [q.lower() for q in question if q not in stop]
+			sims = []
+			for s in story:
+				for q in question:
+					if self.glove_dict.similarity( s, q ) > self.threshold:
+						indecies.append(i)
+						question += stories[i]
+						#import pdb; pdb.set_trace()
 						break
+					else:
+						#import pdb; pdb.set_trace()
+						continue
+				if i in indecies:
+					break
+				else:
+					continue
 						
 			# 			sims.append( self.glove_dict.similarity( s, q ) )
 			# 	similarities.append( sims )
@@ -234,8 +244,8 @@ class Datasets(object):
 			# relevant_ind = sorted( [ind for ind, sim in enumerate( similarities ) 
 			# 	if max( sim ) > self.threshold ] )
 			# indecies.append( relevant_ind )
-		print indecies
-		indecies = sorted( list( set( flatten( indecies ) ) ) )
+		
+		#indecies = sorted( list( set(  indecies ) ) )
 		#relevant_ind = sorted( list( np.array( similarities ).argsort()[::-1][:self.min_num] ) )
 
 		new_stories = []
