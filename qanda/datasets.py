@@ -219,6 +219,7 @@ class Datasets(object):
 		# 	similarities = []
 		
 		indecies = []
+		ctr = 0
 		for i, story in enumerate( stories ):
 			story = [s.lower() for j, s in enumerate(story) if s not in stop]
 			question = [q.lower() for q in question if q not in stop]
@@ -228,8 +229,10 @@ class Datasets(object):
 					if self.glove_dict.similarity( s, q ) > self.threshold:
 						indecies.append(i)
 						if self.task_index !=1:
-							question += stories[i]
-						#import pdb; pdb.set_trace()
+							ctr += 1
+							if ctr < self.task_index
+								question += stories[i]
+							#import pdb; pdb.set_trace()
 						break
 					else:
 						#import pdb; pdb.set_trace()
