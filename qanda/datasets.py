@@ -207,27 +207,34 @@ class Datasets(object):
 		with open('stop.pkl', 'rb') as f:
 			stop = pkl.load(f)
 
-		stop = stop + ['.']
-		
+		stop = stop + ['.']  + ['?']
+
 		flatten = lambda data: reduce(lambda x, y: x + y, data)
 		
 		
 		indecies = []
 		for j in xrange(self.task_index):
 			similarities = []
-			for story in stories:
+			for i, story in enumerate( stories ):
 				story = [s.lower() for s in story if s not in stop]
-				question = [q.lower() for q in question]
+				question = [q.lower() for q in question if s not in stop]
 				sims = []
 				for s in story:
 					for q in question:
-						sims.append( self.glove_dict.similarity( s, q ) )
-				similarities.append( sims )
+						if self.glove_dict.similarity( s, q ) > self.threshold:
+							indecies.append(i)
+							question = flatten( [stories[l] for l in indecies] )
+							break
+					if i in indecies:
+						break
+						
+			# 			sims.append( self.glove_dict.similarity( s, q ) )
+			# 	similarities.append( sims )
 
-			relevant_ind = sorted( [ind for ind, sim in enumerate( similarities ) 
-				if max( sim ) > self.threshold ] )
-			indecies.append( relevant_ind )
-			question = flatten( [stories[i] for i in relevant_ind] )
+			# relevant_ind = sorted( [ind for ind, sim in enumerate( similarities ) 
+			# 	if max( sim ) > self.threshold ] )
+			# indecies.append( relevant_ind )
+		print indecies
 		indecies = sorted( list( set( flatten( indecies ) ) ) )
 		#relevant_ind = sorted( list( np.array( similarities ).argsort()[::-1][:self.min_num] ) )
 
