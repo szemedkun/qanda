@@ -29,7 +29,7 @@ def task2():
 
 	accuracy = 0.427 # the best one from the last model
 	for dp in [.1,.2]:
-		for shs in [500, 1000]:
+		for shs in [100, 200, 500]:
 			model = Fit(vocab_size = ds.answers_size
 				, dropout = dp
 				, sent_hidden_size = shs)
