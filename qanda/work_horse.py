@@ -27,9 +27,9 @@ def task2():
 	tX, tXq, tY = ds.get_testing_data()
 
 
-	accuracy = 0.0
-	for dp in [.1,.2,.5]:
-		for shs in [100, 200, 500]:
+	accuracy = 0.427 # the best one from the last model
+	for dp in [.1,.2]:
+		for shs in [500, 1000]:
 			model = Fit(vocab_size = ds.answers_size
 				, dropout = dp
 				, sent_hidden_size = shs)
@@ -84,4 +84,4 @@ def task3():
 
 if __name__=="__main__":
 	os.sys.setrecursionlimit(50000L)
-	task3()
+	task2()
