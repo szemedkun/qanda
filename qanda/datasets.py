@@ -157,7 +157,7 @@ class Datasets(object):
 	def tokenize(self, sent):
 	    '''Return the tokens of a sentence including punctuation.
 
-	    Adopted from F. Chollet's blog
+	    Adopted from smerity's blog
 
 	    >>> tokenize('Bob dropped the apple. Where is the apple?')
 	    ['Bob', 'dropped', 'the', 'apple', '.', 'Where', 'is', 'the', 'apple', '?']
@@ -167,7 +167,7 @@ class Datasets(object):
 	def parse_stories( self, lines ):
 	    '''Parse stories provided in the bAbi tasks format
 
-	    Adopted from Francois Chollet's blog
+	    Adopted from smerity's blog
 
 	    If only_supporting is true, only the sentences that support the answer are kept.
 	    '''
@@ -229,9 +229,7 @@ class Datasets(object):
 					if self.glove_dict.similarity( s, q ) > self.threshold:
 						indecies.append(i)
 						if self.task_index !=1:
-							ctr += 1
-							if ctr < self.task_index:
-								question += stories[i]
+							question += stories[i]
 							#import pdb; pdb.set_trace()
 						break
 					else:
@@ -263,7 +261,7 @@ class Datasets(object):
 	def get_stories(self, f, max_length=None, downsample = False):
 	    '''Given a file name, read the file, retrieve the stories, and then convert the sentences into a single story.
 
-	    Adopted from Francois Chollet's blog
+	    Adopted from SMerity's blog
 
 	    If max_length is supplied, any stories longer than max_length tokens will be discarded.
 	    '''
