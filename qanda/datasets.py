@@ -233,7 +233,7 @@ class Datasets(object):
 						indecies.append(i-1)
 						if self.task_index !=1:
 							ctr += 1
-							if ctr < self.task_index:
+							if ctr < 2:#self.task_index:
 								question += [s.lower() for s in stories[i-1] if s not in stop]
 								i = 0
 							#import pdb; pdb.set_trace()
