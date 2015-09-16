@@ -230,7 +230,7 @@ class Datasets(object):
 						indecies.append(i)
 						if self.task_index !=1:
 							question += stories[i]
-							#import pdb; pdb.set_trace()
+							import pdb; pdb.set_trace()
 						break
 					else:
 						#import pdb; pdb.set_trace()
