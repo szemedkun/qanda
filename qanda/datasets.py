@@ -231,7 +231,7 @@ class Datasets(object):
 				for q in question:
 					if self.glove_dict.similarity( s, q ) > self.threshold:
 						indecies.append(i-1)
-						if self.task_index !=1:
+						if self.task_index not in [1,5]:
 							ctr += 1
 							if ctr < 2:#self.task_index:
 								question += [s.lower() for s in stories[i-1] if s not in stop]
