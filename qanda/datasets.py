@@ -220,17 +220,23 @@ class Datasets(object):
 		
 		indecies = []
 		ctr = 0
-		for i, story in enumerate( stories ):
+		i = 0
+		while i < len( stories ):
+			story = stories[i]
 			story = [s.lower() for j, s in enumerate(story) if s not in stop]
 			question = [q.lower() for q in question if q not in stop]
 			sims = []
+			i += 1
 			for s in story:
 				for q in question:
 					if self.glove_dict.similarity( s, q ) > self.threshold:
-						indecies.append(i)
+						indecies.append(i-1)
 						if self.task_index !=1:
-							question += stories[i]
-							import pdb; pdb.set_trace()
+							question += [s.lower() for s in stories[i-1] if s not in stop]
+							ctr += 1
+							if ctr < self.task_index:
+								i = 0
+							#import pdb; pdb.set_trace()
 						break
 					else:
 						#import pdb; pdb.set_trace()
@@ -247,7 +253,7 @@ class Datasets(object):
 			# 	if max( sim ) > self.threshold ] )
 			# indecies.append( relevant_ind )
 		
-		#indecies = sorted( list( set(  indecies ) ) )
+		indecies = sorted( list( set(  indecies ) ) )
 		#relevant_ind = sorted( list( np.array( similarities ).argsort()[::-1][:self.min_num] ) )
 
 		new_stories = []
