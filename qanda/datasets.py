@@ -3,7 +3,7 @@ from __future__ import print_function
 from functools import reduce
 import re
 import numpy as np
-import cPickle as pkl
+import pickle as pkl
 np.random.seed(1337)  # for reproducibility
 from gensim.models.word2vec import Word2Vec
 
@@ -360,7 +360,7 @@ class Datasets(object):
 				X2.append(x2)
 				Xq.append(xq)
 				Y.append(y)
-			print("Finished getting word2vec ...")
+			print("Finished getting word vectors ...")
 			return np.array(X1), np.array(X2), np.array(Xq), np.array(Y)
 
 		else:
@@ -385,7 +385,7 @@ class Datasets(object):
 				X.append(x)
 				Xq.append(xq)
 				Y.append(y)
-			print("Finished getting word2vec ...")
+			print("Finished getting word vectors ...")
 			return np.array(X), np.array(Xq), np.array(Y)
 
 
@@ -399,7 +399,7 @@ class Datasets(object):
 
 if __name__=="__main__":
 	# pass
-	model = Datasets(use_small_target = True, sent_size = 2)
+	model = Datasets(use_small_target = True, similar_only = True)
 	model.fit()
 	X, Xq, Y = model.get_training_data()
 	tX, tXq, tY = model.get_testing_data() 
