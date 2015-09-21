@@ -9,7 +9,7 @@ sys.setrecursionlimit(50000)
 ds = Datasets(threshold = 0.99
 	, task_index = 5
 	, only_supporting = False
-	, use10k = False
+	, use10k = True
 	, use_small_target = True
 	, similar_only = True)
 
