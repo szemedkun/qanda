@@ -1,5 +1,5 @@
 # Question Answering System
-## Made as a Capstone Project in Galvanize's Data Science Program
+## Made as a Capstone Project for Galvanize's Data Science Program
 
 ### Introduction
 The goal of the project is to build a model that understands a set of factual sentences to be able to answer questions based on the facts. For example, 
