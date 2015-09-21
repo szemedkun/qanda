@@ -1,4 +1,4 @@
-# Question Answering System
+# General Question Answering System
 ## Made as a Capstone Project for Galvanize's Data Science Program
 
 ### Introduction
