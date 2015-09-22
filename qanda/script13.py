@@ -11,7 +11,7 @@ ds = Datasets(threshold = 0.99
 	, only_supporting = False
 	, use10k = True
 	, use_small_target = True
-	, similar_only = True)
+	, similar_only = False)
 
 ds.fit()
 
