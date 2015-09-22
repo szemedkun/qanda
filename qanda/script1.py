@@ -21,7 +21,7 @@ tX, tXq, tY = ds.get_testing_data()
 
 model = Fit(vocab_size = ds.answers_size
 	, sent_hidden_size = max( [ min([2 * X.shape[1] // 3, 50]), 2*X.shape[1] // 3 ] )
-	, epochs = 10
+	, epochs = 20
 	, batch_size = 32 )
 
 
