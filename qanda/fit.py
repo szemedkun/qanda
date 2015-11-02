@@ -1,6 +1,6 @@
 from datasets import Datasets
 import numpy as np
-np.random.seed(1337)  # for reproducibility
+# np.random.seed(1337)  # for reproducibility
 from keras.layers.core import Dense, Merge, Dropout
 from keras.layers import recurrent
 from keras.models import Sequential
@@ -58,7 +58,7 @@ class Fit:
             qrnn = Sequential()
             qrnn.add(RNN(self.W2V_DIM, self.QUERY_HIDDEN_SIZE, return_sequences=True))
             qrnn.add(RNN(self.QUERY_HIDDEN_SIZE, self.QUERY_HIDDEN_SIZE2, return_sequences = False))
-            
+
             # merging
             model = Sequential()
             model.add(Merge([sentrnn, qrnn], mode='concat'))
@@ -82,7 +82,7 @@ class Fit:
             qrnn = Sequential()
             qrnn.add(RNN(self.W2V_DIM, self.QUERY_HIDDEN_SIZE, return_sequences=self.rs))
             #qrnn.add(RNN(self.QUERY_HIDDEN_SIZE, self.QUERY_HIDDEN_SIZE2, return_sequences = False))
-            
+
             # merging
             model = Sequential()
             model.add(Merge([sentrnn, qrnn], mode='concat'))
